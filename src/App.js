@@ -6,6 +6,8 @@ import DragonAI from "./section/DragonAI";
 import Solution from "./section/Solution";
 import RoadMap from "./section/RoadMap";
 import Tokenomics from "./section/Tokenomics";
+import Advisor from "./section/Advisor";
+import Team from "./section/Team";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
       <Solution />
       <RoadMap />
       <Tokenomics />
+      <Advisor />
+      <Team />
     </div>
   );
 }
