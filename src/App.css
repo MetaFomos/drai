@@ -36,3 +36,53 @@
     transform: rotate(360deg);
   }
 }
+
+.n-container {
+  @apply max-w-[1360px] m-auto w-[95%] sm:w-[90%];
+}
+
+.bg-intro {
+  background-image: url("/public/images/intro_background.png");
+  background-size: cover;
+}
+
+.text-eee {
+  color: #eeeeee !important;
+}
+
+.bg-golden {
+  background-color: #d3ae6c;
+}
+
+.golden-font {
+  color: #d3ae6c;
+}
+
+.dark-font {
+  color: #2d2d2d;
+}
+
+.glaserstencil {
+  font-family: "GlaserStencil";
+}
+
+.bebas {
+  font-family: "Bebas";
+}
+
+.poppinsFont {
+  font-family: "Poppins";
+}
+
+.bg-drai {
+  background: linear-gradient(0deg, #000000, #000000),
+    linear-gradient(180deg, rgba(3, 0, 27, 0) 0%, #03001b 100%);
+}
+
+.bg-solution {
+  background-image: url(/public/images/solutionbg.png);
+}
+
+.bg-solution-item {
+  background-color: #2d2d2d;
+}

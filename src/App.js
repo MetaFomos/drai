@@ -1,10 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+
+import Info from "./section/Intro";
+import DragonAI from "./section/DragonAI";
+import Solution from "./section/Solution";
+import RoadMap from "./section/RoadMap";
+import Tokenomics from "./section/Tokenomics";
 
 function App() {
   return (
     <div className="App">
-      <div className='text-8xl'>123</div>
+      <Info />
+      <DragonAI />
+      <Solution />
+      <RoadMap />
+      <Tokenomics />
     </div>
   );
 }
