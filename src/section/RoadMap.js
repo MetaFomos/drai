@@ -32,7 +32,7 @@ const RoadmapItem = ({ quater, tasks }) => {
     <>
       <div className="bg-solution-item shadow-2xl rounded-2xl text-white mt-[60px] py-2">
         <div className="flex items-center justify-around py-2 px-3">
-          <span className="bebas text-[60px]">Q{quater}</span>
+          <span className="bebas text-[40px] md:text-[60px]">Q{quater}</span>
           <div
             className="bg-white h-[2px] w-[65%]"
             style={{ borderTop: "2px dotted black" }}
@@ -42,7 +42,10 @@ const RoadmapItem = ({ quater, tasks }) => {
           </span>
         </div>
         {tasks.map((item, key) => (
-          <p key={key} className="text-left py-1 px-5 text-[20px] poppinsFont">
+          <p
+            key={key}
+            className="text-left py-1 px-5 text-[18px] sm:text-[20px] poppinsFont"
+          >
             - {item}
           </p>
         ))}
@@ -57,9 +60,9 @@ const RoadMap = () => {
 
   return (
     <>
-      <div className="items-center flex py-20 poppinsFont">
+      <div className="items-center flex py-10 md:py-20 poppinsFont">
         <div className="n-container">
-          <h1 className="glaserstencil font-normal text-[69px] golden-font py-3">
+          <h1 className="glaserstencil font-normal text-[40px] md:text-[60px] golden-font py-3">
             roadmap
           </h1>
 
@@ -83,7 +86,7 @@ const RoadMap = () => {
               );
             })}
           </div>
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {roadmapTerms[selectedYear].map((item, key) => (
               <RoadmapItem key={key} quater={item.quater} tasks={item.tasks} />
             ))}

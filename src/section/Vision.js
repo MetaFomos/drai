@@ -5,16 +5,16 @@ const Vision = () => {
     <>
       <div className="items-center flex pb-20">
         <div className="n-container">
-          <h1 className="glaserstencil font-normal text-[69px] golden-font pt-5">
+          <h1 className="glaserstencil font-normal text-[40px] md:text-[60px] golden-font pt-5">
             VISION
           </h1>
-          <div className="flex justify-center mt-10 gap-5">
-            <div className="w-[50%]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 mt-10 gap-5">
+            <div className="hidden md:block lg:block">
               <img width={"90%"} src="/images/robot.png" />
             </div>
-            <div className="w-[50%]">
+            <div className="px-2">
               <ul className="text-white">
-                <li className="text-[20px] text-left leading-8 list-disc">
+                <li className="text-[18px] md:text-[20px] md:text-left leading-8 list-none md:list-disc m-auto text-left break-all">
                   DragonAI aims to improve the transparency, safety and
                   efficiency of data processing and management by combining the
                   advantages of artificial intelligence and blockchain
@@ -26,7 +26,7 @@ const Vision = () => {
                   impact on industry, economy and society, with limitless
                   scalability across all industries.
                 </li>
-                <li className="text-[20px] text-left mt-5 leading-8 list-disc">
+                <li className="text-[18px] md:text-[20px] md:text-left mt-5 leading-8 list-none md:list-disc m-auto text-left break-all">
                   DragonAI will make technological progress and development to
                   provide new value creation opportunities to businesses and
                   individuals by discovering the infinite possibilities of AI

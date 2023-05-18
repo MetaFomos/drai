@@ -51,21 +51,18 @@ const solutionsAsset = [
   },
 ];
 
-const SolutionItem = ({title, secondTitle, description, image}) => {
+const SolutionItem = ({ title, secondTitle, description, image }) => {
   return (
     <>
       <div className="bg-solution-item shadow-2xl rounded-2xl text-white mt-[60px] py-2">
-        <img
-          src={image}
-          className="m-auto w-[125px] -mt-[60px]"
-        />
-        <p className="my-2 px-10 font-semibold text-[30px] leading-12">
+        <img src={image} className="m-auto w-[125px] -mt-[60px]" />
+        <p className="my-2 px-10 font-semibold text-[20px] md:text-[30px] leading-12">
           {title}
         </p>
-        <p className="my-2 px-10 golden-font text-[16px] font-medium">
+        <p className="my-2 px-10 golden-font text-[14px] md:text-[16px] font-medium">
           {secondTitle}
         </p>
-        <p className="my-2 px-1 text-[16px] font-medium">
+        <p className="my-2 px-1 text-[14px] md:text-[16px] font-medium">
           {description}
         </p>
       </div>
@@ -78,10 +75,10 @@ const Solution = () => {
     <>
       <div className="bg-solution items-center flex py-20 poppinsFont">
         <div className="n-container">
-          <h1 className="glaserstencil font-normal text-[69px] golden-font py-3">
+          <h1 className="glaserstencil font-normal text-[40px] md:text-[60px] golden-font py-3">
             DRAGONAI'S SOLUTION
           </h1>
-          <div className="grid grid-cols-3 gap-6 mt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
             {solutionsAsset.map((item, index) => (
               <SolutionItem
                 key={index}

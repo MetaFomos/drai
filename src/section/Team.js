@@ -1,9 +1,11 @@
 import React from "react";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 
 const TeamMemberComponent = ({ name, role, picture }) => {
   return (
     <>
-      <div>
+      <div className="w-[80%] m-auto pb-10">
         <img
           className="m-auto"
           width={"260px"}
@@ -28,12 +30,13 @@ const Team = () => {
 
   return (
     <>
-      <div className="bg-solution items-center flex pb-20">
+      <div className="bg-solution items-center flex ">
         <div className="n-container">
-          <h1 className="glaserstencil font-normal text-[69px] golden-font pt-5">
+          <h1 className="glaserstencil font-normal text-[40px] md:text-[60px] golden-font pt-5">
             TEAM
           </h1>
-          <div className="grid grid-cols-3">
+          <p className="text-white text-xl">Meet Our Members!</p>
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 py-5">
             {teamMembers.map((item, key) => (
               <TeamMemberComponent
                 key={key}
@@ -42,6 +45,18 @@ const Team = () => {
                 picture={key}
               />
             ))}
+          </div>
+          <div className="md:hidden">
+            <Carousel>
+              {teamMembers.map((item, key) => (
+                <TeamMemberComponent
+                  key={key}
+                  name={item.name}
+                  role={item.role}
+                  picture={key}
+                />
+              ))}
+            </Carousel>
           </div>
         </div>
       </div>

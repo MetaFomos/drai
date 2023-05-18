@@ -22,7 +22,7 @@ function App() {
       <Advisor />
       <Team />
       <Vision />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
