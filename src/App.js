@@ -8,6 +8,8 @@ import RoadMap from "./section/RoadMap";
 import Tokenomics from "./section/Tokenomics";
 import Advisor from "./section/Advisor";
 import Team from "./section/Team";
+import Vision from "./section/Vision";
+import Footer from "./section/Footer";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
       <Tokenomics />
       <Advisor />
       <Team />
+      <Vision />
+      <Footer />
     </div>
   );
 }

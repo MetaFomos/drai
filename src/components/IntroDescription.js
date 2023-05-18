@@ -18,7 +18,7 @@ const IntroDescription = () => {
               <button className="bg-golden text-[20px] px-[23px] py-[8px] rounded-lg dark-font">
                 Get Started
               </button>
-              <div className="flex gap-4 items-center">
+              <div className="flex gap-4 items-center cursor-pointer">
                 <button>
                   <img src="/images/playbutton.svg" />
                 </button>
