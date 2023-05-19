@@ -12,6 +12,10 @@ const Tokenomics = () => {
             $DRON Token
           </h1>
           <img className="py-4" src="/images/tokenomics.png" />
+          <p className="text-[16px] md:text-[20px] text-white pt-8">
+            Lock period will effective
+            <br /> upon first listing cex
+          </p>
         </div>
       </div>
     </>

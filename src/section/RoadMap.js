@@ -8,7 +8,7 @@ const roadmapTerms = {
     },
     {
       quater: 3,
-      tasks: ["Listed on CEX exchange (overseas)"],
+      tasks: ["Listed on CEX exchange"],
     },
     {
       quater: 4,
@@ -18,7 +18,7 @@ const roadmapTerms = {
   2024: [
     {
       quater: 1,
-      tasks: ["Listed on CEX exchange (overseas)"],
+      tasks: ["Listed on CEX exchange"],
     },
     {
       quater: 2,
