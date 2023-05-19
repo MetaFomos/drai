@@ -1,4 +1,7 @@
 import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const solutionsAsset = [
   {
@@ -54,8 +57,11 @@ const solutionsAsset = [
 const SolutionItem = ({ title, secondTitle, description, image }) => {
   return (
     <>
-      <div className="bg-solution-item shadow-2xl rounded-2xl text-white mt-[60px] py-2">
-        <img src={image} className="m-auto w-[125px] -mt-[60px]" />
+      <div className="bg-solution-item shadow-2xl rounded-2xl text-white mt-[60px] py-[40px] mx-2">
+        <img
+          src={image}
+          className="m-auto w-[125px] -mt-[60px] hidden sm:block"
+        />
         <p className="my-2 px-10 font-semibold text-[20px] md:text-[30px] leading-12">
           {title}
         </p>
@@ -71,14 +77,25 @@ const SolutionItem = ({ title, secondTitle, description, image }) => {
 };
 
 const Solution = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <>
-      <div className="bg-solution items-center flex py-20 poppinsFont">
+      <div
+        className="bg-solution items-center flex py-20 poppinsFont"
+        id="sectionsolution"
+      >
         <div className="n-container">
           <h1 className="glaserstencil font-normal text-[40px] md:text-[60px] golden-font py-3">
             DRAGONAI'S SOLUTION
           </h1>
-          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+          <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
             {solutionsAsset.map((item, index) => (
               <SolutionItem
                 key={index}
@@ -88,6 +105,21 @@ const Solution = () => {
                 image={item.image}
               />
             ))}
+          </div>
+          <div className="block sm:hidden m-auto w-[90%]">
+            <div>
+              <Slider {...settings}>
+                {solutionsAsset.map((item, index) => (
+                  <SolutionItem
+                    key={index}
+                    title={item.title}
+                    secondTitle={item.secondTitle}
+                    description={item.description}
+                    image={item.image}
+                  />
+                ))}
+              </Slider>
+            </div>
           </div>
         </div>
       </div>

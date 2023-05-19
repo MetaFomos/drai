@@ -16,12 +16,19 @@ const Footer = () => {
             <div className="flex justify-between lg:w-[30%]">
               <div className="text-white">
                 <p className="text-[18px] md:text-[25px] text-left">Company</p>
-                <p className="text-[14px] md:text-[21px] text-left lg:mt-[30px] mt-[15px]">
-                  Team
-                </p>
-                <p className="text-[14px] md:text-[21px] text-left lg:mt-[30px] mt-[15px]">
-                  Whitepaper
-                </p>
+                <a href="#sectionteam">
+                  <p className="text-[14px] md:text-[21px] text-left lg:mt-[30px] mt-[15px]">
+                    Team
+                  </p>
+                </a>
+                <a
+                  href="https://drive.google.com/file/d/1wxS4kVmgX6UMmRiCalr3tbl6S9TQXzzC/view"
+                  target="_blank"
+                >
+                  <p className="text-[14px] md:text-[21px] text-left lg:mt-[30px] mt-[15px]">
+                    Whitepaper
+                  </p>
+                </a>
               </div>
               <div className="text-white">
                 <p className="text-[18px] md:text-[25px] text-left">Legal</p>

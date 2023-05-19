@@ -60,7 +60,10 @@ const RoadMap = () => {
 
   return (
     <>
-      <div className="items-center flex py-10 md:py-20 poppinsFont">
+      <div
+        className="items-center flex py-10 md:py-20 poppinsFont"
+        id="sectionroadmap"
+      >
         <div className="n-container">
           <h1 className="glaserstencil font-normal text-[40px] md:text-[60px] golden-font py-3">
             roadmap

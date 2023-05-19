@@ -3,7 +3,7 @@ import React from "react";
 const DragonAI = () => {
   return (
     <>
-      <div className="bg-drai items-center flex pb-20">
+      <div id="sectiondrai" className="bg-drai items-center flex pb-20">
         <div className="n-container">
           <h1 className="glaserstencil font-normal text-[40px] md:text-[60px] golden-font py-3">
             DRAGONAI

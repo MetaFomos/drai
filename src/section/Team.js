@@ -30,7 +30,7 @@ const Team = () => {
 
   return (
     <>
-      <div className="bg-solution items-center flex ">
+      <div className="bg-solution items-center flex" id="sectionteam">
         <div className="n-container">
           <h1 className="glaserstencil font-normal text-[40px] md:text-[60px] golden-font pt-5">
             TEAM

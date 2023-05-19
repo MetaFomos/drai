@@ -12,35 +12,56 @@ const Navbar = () => {
           />
         </a>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul className="font-md flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 bg-transparent dark:border-gray-700 text-xl">
+          <ul className="font-md flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 bg-transparent dark:border-gray-700 text-md">
             <li>
-              <a href="#" className="text-eee" aria-current="page">
-                Product
+              <a href="#sectiondrai" className="text-eee" aria-current="page">
+                DRAGONAI
               </a>
             </li>
             <li>
-              <a href="#" className="text-eee" aria-current="page">
-                Roadmap
+              <a
+                href="#sectionsolution"
+                className="text-eee"
+                aria-current="page"
+              >
+                SOLUTION
               </a>
             </li>
             <li>
-              <a href="#" className="text-eee" aria-current="page">
-                Advisor
+              <a
+                href="#sectionroadmap"
+                className="text-eee"
+                aria-current="page"
+              >
+                ROADMAP
               </a>
             </li>
             <li>
-              <a href="#" className="text-eee" aria-current="page">
-                Team
+              <a
+                href="#sectiontokenomics"
+                className="text-eee"
+                aria-current="page"
+              >
+                TOKENOMICS
               </a>
             </li>
             <li>
-              <a href="#" className="text-eee" aria-current="page">
-                Vision
+              <a
+                href="#sectionadvisor"
+                className="text-eee"
+                aria-current="page"
+              >
+                ADVISOR
               </a>
             </li>
             <li>
-              <a href="#" className="text-eee" aria-current="page">
-                Contract
+              <a href="#sectionteam" className="text-eee" aria-current="page">
+                TEAM
+              </a>
+            </li>
+            <li>
+              <a href="#sectionvision" className="text-eee" aria-current="page">
+                VISION
               </a>
             </li>
           </ul>

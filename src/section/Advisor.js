@@ -3,7 +3,7 @@ import React from "react";
 const Advisor = () => {
   return (
     <>
-      <div className="items-center flex pb-10 md:pb-20">
+      <div className="items-center flex pb-10 md:pb-20" id="sectionadvisor">
         <div className="n-container">
           <h1 className="glaserstencil font-normal text-[40px] md:text-[60px] golden-font pt-5">
             HERBERT R. SIM

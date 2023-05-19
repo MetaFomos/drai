@@ -22,6 +22,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   background-color: #03001b;
+  scroll-behavior: smooth;
 }
 
 code {
