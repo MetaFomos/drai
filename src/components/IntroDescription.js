@@ -1,4 +1,5 @@
 import React from "react";
+import IntroVideo from "./VideoComponent";
 
 const IntroDescription = () => {
   return (
@@ -21,9 +22,11 @@ const IntroDescription = () => {
                 <button>
                   <img src="/images/playbutton.svg" />
                 </button>
-                <span className="text-[16px] sm:text-[18px]">
-                  Watch Intro Video
-                </span>
+                <a href="https://youtu.be/1uHJQk1o-pY" target="_blank">
+                  <span className="text-[16px] sm:text-[18px]">
+                    Watch Intro Video
+                  </span>
+                </a>
               </div>
             </div>
           </div>
@@ -38,9 +41,11 @@ const IntroDescription = () => {
               <button>
                 <img src="/images/playbutton.svg" />
               </button>
-              <span className="text-[16px] sm:text-[18px]">
-                Watch Intro Video
-              </span>
+              <a href="https://youtu.be/1uHJQk1o-pY" target="_blank">
+                <span className="text-[16px] sm:text-[18px]">
+                  Watch Intro Video
+                </span>
+              </a>
             </div>
           </div>
         </div>
