@@ -10,7 +10,7 @@ const IntroDescription = () => {
               MASTER PIECE OF AI
             </p>
             <p className="text-left text-[16px] sm:text-[18px] poppinsFont lead-7">
-              The Size Of The Will Grow At An Average Annual Rate Of 38.1% By
+              The Size Of AI Will Grow At An Average Annual Rate Of 38.1% By
               2030 To Reach USD 1,591 Billion.
             </p>
             <div className="md:flex gap-6 my-5 items-center justify-center md:justify-normal hidden">

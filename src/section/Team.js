@@ -1,6 +1,9 @@
 import React from "react";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from "react-responsive-carousel";
+// import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+// import { Carousel } from "react-responsive-carousel";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const TeamMemberComponent = ({ name, role, picture }) => {
   return (
@@ -19,6 +22,14 @@ const TeamMemberComponent = ({ name, role, picture }) => {
 };
 
 const Team = () => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   const teamMembers = [
     { name: "EDDAN LEE", role: "Co-Founder" },
     { name: "JAKE", role: "CTO" },
@@ -46,8 +57,8 @@ const Team = () => {
               />
             ))}
           </div>
-          <div className="md:hidden">
-            <Carousel>
+          <div className="md:hidden w-[80%] m-auto">
+            <Slider>
               {teamMembers.map((item, key) => (
                 <TeamMemberComponent
                   key={key}
@@ -56,7 +67,7 @@ const Team = () => {
                   picture={key}
                 />
               ))}
-            </Carousel>
+            </Slider>
           </div>
         </div>
       </div>
