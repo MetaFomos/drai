@@ -1,5 +1,4 @@
 import React from "react";
-import IntroVideo from "./VideoComponent";
 
 const IntroDescription = () => {
   return (
