@@ -37,6 +37,7 @@ const Team = () => {
     { name: "MICHAEL", role: "Developer Lead" },
     { name: "TAM", role: "Dev Ops" },
     { name: "THOMAS", role: "Front-end Lead" },
+    { name: "ZHENG", role: "UI/UX Designer" },
   ];
 
   return (
@@ -47,7 +48,7 @@ const Team = () => {
             TEAM
           </h1>
           <p className="text-white text-xl">Meet Our Members!</p>
-          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 py-5">
+          <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-4 py-5">
             {teamMembers.map((item, key) => (
               <TeamMemberComponent
                 key={key}

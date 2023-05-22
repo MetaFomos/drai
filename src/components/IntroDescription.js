@@ -17,16 +17,17 @@ const IntroDescription = () => {
               <button className="bg-golden text-[16px] sm:text-[20px] px-[10px] py-[8px] rounded-lg dark-font">
                 Get Started
               </button>
-              <div className="flex gap-4 items-center cursor-pointer">
-                <button>
-                  <img src="/images/playbutton.svg" />
-                </button>
-                <a href="https://youtu.be/1uHJQk1o-pY" target="_blank">
+              <a href="https://youtu.be/1uHJQk1o-pY" target="_blank">
+                <div className="flex gap-4 items-center cursor-pointer">
+                  <button>
+                    <img src="/images/playbutton.svg" />
+                  </button>
+
                   <span className="text-[16px] sm:text-[18px]">
                     Watch Intro Video
                   </span>
-                </a>
-              </div>
+                </div>
+              </a>
             </div>
           </div>
         </div>
@@ -36,16 +37,17 @@ const IntroDescription = () => {
             <button className="bg-golden text-[16px] sm:text-[20px] px-[10px] py-[8px] rounded-lg dark-font">
               Get Started
             </button>
-            <div className="flex gap-4 items-center cursor-pointer">
-              <button>
-                <img src="/images/playbutton.svg" />
-              </button>
-              <a href="https://youtu.be/1uHJQk1o-pY" target="_blank">
+            <a href="https://youtu.be/1uHJQk1o-pY" target="_blank">
+              <div className="flex gap-4 items-center cursor-pointer">
+                <button>
+                  <img src="/images/playbutton.svg" />
+                </button>
+
                 <span className="text-[16px] sm:text-[18px]">
                   Watch Intro Video
                 </span>
-              </a>
-            </div>
+              </div>
+            </a>
           </div>
         </div>
       </div>
