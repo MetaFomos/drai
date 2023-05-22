@@ -93,7 +93,7 @@ const Solution = () => {
       >
         <div className="n-container">
           <h1 className="glaserstencil font-normal text-[40px] md:text-[60px] golden-font py-3">
-            DRAGONAI'S SOLUTION
+            SOLUTION
           </h1>
           <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
             {solutionsAsset.map((item, index) => (

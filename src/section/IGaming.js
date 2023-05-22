@@ -5,72 +5,47 @@ import "slick-carousel/slick/slick-theme.css";
 
 const solutionsAsset = [
   {
-    title: "Natural Language Processing (NLP)",
+    title: "IGaming",
     secondTitle:
-      "Dragon Al Solutions Can Process And Understand Text And Voice Data",
-    description:
-      "Implamentation Of Various Applications Such As Chatbot, Machine Translation, Santimant",
-    image: "/images/solution/first.png",
+      "A variety of slots and card games are casino games that can entertain users and enjoy them at an affordable price.",
+    image: "/images/features/igaming.png",
   },
   {
-    title: "Computer Vision Technology",
+    title: "ToonaToona",
     secondTitle:
-      "Provides The Ability To Process And Analyze Image And Video Data Supports",
-    description:
-      "Applications Such As Object Recognition, Image Classification, Face Recognition, And Video",
-    image: "/images/solution/second.png",
+      "Webtoons are already getting a lot of love. Let the world experience more thrilling world and experience than Netflix!",
+    image: "/images/features/toonatoona.png",
   },
   {
-    title: "Robotics And Automous Driving",
+    title: "1the9",
     secondTitle:
-      "Dragon! Sclutions Are Appked 10 OboRCs And Autonomous Dring Chnology To Perform Tasks ",
-    description:
-      "Such As Movement Planing. Obstacle Evidance, And Route Optmizaon.",
-    image: "/images/solution/third.png",
+      "Numbers have their own strength. Find your own good energy and get lucky. Change your current life by checking your life numbers!",
+    image: "/images/features/19.png",
   },
   {
-    title: "Machine Learning And Deep Learning",
+    title: "AI Clinic",
     secondTitle:
-      "Dragon Al Soluions Provide Machine Learning Algorithms That Can Perform Tasks",
-    description:
-      "Such As Prediction, Classification, And Clustering Based On Data",
-    image: "/images/solution/fourth.png",
-  },
-  {
-    title: "Recommendation System",
-    secondTitle:
-      "Inches A Function To Provide Personalized Recommendations By Analyzing Per Behavior",
-    description:
-      "Such As Online Shopping, Movie Recommendations, And Music Recommendations",
-    image: "/images/solution/fifth.png",
-  },
-  {
-    title: "Speech Recognition And Synth",
-    secondTitle:
-      "Supports Applications Such As Voice Recognition Assistant And Voice Synthesis",
-    description:
-      "By Providing A Function To Convert Voice To Text Or Convert Text To Voice",
-    image: "/images/solution/sixth.png",
+      "AI now even predicts plastic surgery! It analyzes probabilistically for everyone who wants to become handsome and pretty. Don't be misdiagnosed by doctors anymore, let's ask artificial intelligence!",
+    image: "/images/features/aiclinic.png",
   },
 ];
 
 const SolutionItem = ({ title, secondTitle, description, image }) => {
   return (
     <>
-      <div className="bg-solution-item shadow-2xl rounded-2xl text-white mt-[60px] py-[40px] mx-2">
+      <div className="shadow-2xl rounded-2xl text-white mt-[60px] py-[40px] mx-2 cursor-pointer flex flex-col lg:flex-row items-center">
         <img
           src={image}
-          className="m-auto w-[125px] -mt-[60px] hidden sm:block"
+          className="m-auto w-[400px] -mt-[60px] hidden sm:block"
         />
-        <p className="my-2 px-10 font-semibold text-[20px] md:text-[30px] leading-12">
-          {title}
-        </p>
-        <p className="my-2 px-10 golden-font text-[14px] md:text-[16px] font-medium">
-          {secondTitle}
-        </p>
-        <p className="my-2 px-1 text-[14px] md:text-[16px] font-medium">
-          {description}
-        </p>
+        <div className="lg:mt-[-100px] lg:w-[50%]">
+          <p className="my-2 px-10 font-semibold text-[25px] md:text-[35px] leading-12 text-left">
+            {title}
+          </p>
+          <p className="my-10 px-10 text-white text-[18px] md:text-[20px] font-medium hidden md:block text-left">
+            {secondTitle}
+          </p>
+        </div>
       </div>
     </>
   );
@@ -89,24 +64,13 @@ const IGaming = () => {
     <>
       <div
         className="bg-solution items-center flex py-20 poppinsFont"
-        id="sectionsolution"
+        id="sectionfeatures"
       >
         <div className="n-container">
           <h1 className="glaserstencil font-normal text-[40px] md:text-[60px] golden-font py-3">
-            DRAGONAI'S FEATURES
+            FEATURES
           </h1>
-          <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-            {solutionsAsset.map((item, index) => (
-              <SolutionItem
-                key={index}
-                title={item.title}
-                secondTitle={item.secondTitle}
-                description={item.description}
-                image={item.image}
-              />
-            ))}
-          </div>
-          <div className="block sm:hidden m-auto w-[90%]">
+          <div className="block m-auto w-[90%]">
             <div>
               <Slider {...settings}>
                 {solutionsAsset.map((item, index) => (

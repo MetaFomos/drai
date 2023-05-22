@@ -29,6 +29,15 @@ const Navbar = () => {
             </li>
             <li>
               <a
+                href="#sectionfeatures"
+                className="text-eee"
+                aria-current="page"
+              >
+                FEATURES
+              </a>
+            </li>
+            <li>
+              <a
                 href="#sectionsolution"
                 className="text-eee"
                 aria-current="page"
