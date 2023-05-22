@@ -1,4 +1,4 @@
-# DragonAI
+# DragonAI Platform
 
 The DRAGONAI platform has a modular structure, providing useful functions for collecting information from individual smartphones and turning it into AI. This modularity can be easily extended and adapted to each user's needs, helping to deliver a personalized AI experience.
 
