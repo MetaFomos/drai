@@ -23,7 +23,7 @@ const solutionsAsset = [
     image: "/images/features/19.png",
   },
   {
-    title: "AI Clinic",
+    title: "AI Beauty",
     secondTitle:
       "AI now even predicts plastic surgery! It analyzes probabilistically for everyone who wants to become handsome and pretty. Don't be misdiagnosed by doctors anymore, let's ask artificial intelligence!",
     image: "/images/features/aiclinic.png",
