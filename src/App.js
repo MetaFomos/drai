@@ -10,12 +10,14 @@ import Advisor from "./section/Advisor";
 import Team from "./section/Team";
 import Vision from "./section/Vision";
 import Footer from "./section/Footer";
+import IGaming from "./section/IGaming";
 
 function App() {
   return (
     <div className="App">
       <Info />
       <DragonAI />
+      {/* <IGaming /> */}
       <Solution />
       <RoadMap />
       <Tokenomics />
