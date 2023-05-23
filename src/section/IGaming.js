@@ -19,7 +19,7 @@ const solutionsAsset = [
   {
     title: "1the9",
     secondTitle:
-      "Numbers have their own strength. Find your own good energy and get lucky. Change your current life by checking your life numbers!",
+      "An application that solves the energy and meaning of our numbers.  Numbers have a unique power. Find your own good energy and good luck. Change your current life by checking your numbers!",
     image: "/images/features/19.png",
   },
   {
