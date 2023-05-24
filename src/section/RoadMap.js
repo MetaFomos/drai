@@ -4,25 +4,25 @@ const roadmapTerms = {
   2023: [
     {
       quater: 2,
-      tasks: ["Social casino(I-GAMING) launch", "Launched DragonAI"],
+      tasks: ["LAUNCH DRAGONAI", "SOCIAL CASINO(I-GAMING) LAUNCH"],
     },
     {
       quater: 3,
-      tasks: ["Listed on CEX exchange"],
+      tasks: ["LISTING ON CEX EXCHANGE"],
     },
     {
       quater: 4,
-      tasks: ["Listed on CEX exchange", "AI hospital platform launch"],
+      tasks: ["LISTING ON CEX EXCHANGE", "AI HOSPITAL PLATFORM LAUNCH"],
     },
   ],
   2024: [
     {
       quater: 1,
-      tasks: ["Listed on CEX exchange"],
+      tasks: ["LISTING ON CEX EXCHANGE", "LAUNCH 1THE9"],
     },
     {
       quater: 2,
-      tasks: ["Listed on CEX exchange"],
+      tasks: ["LISTING ON CEX EXCHANGE", "LAUNCH TOONATOONA"],
     },
   ],
 };
