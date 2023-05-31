@@ -76,11 +76,7 @@ const Advisor = () => {
             <div>
               <img className="" src="/images/edward.png" />
               <div className="flex w-[100%] mt-[-7%]">
-                <a
-                  className="w-[7%]"
-                  href="https://instagram.com/herbertrsim"
-                  target="_blank"
-                >
+                <a className="w-[7%]" href="#" target="_blank">
                   <img src="/images/socials/instagram.png" />
                 </a>
                 <a
@@ -90,18 +86,10 @@ const Advisor = () => {
                 >
                   <img src="/images/socials/linkedin.png" />
                 </a>
-                <a
-                  className="w-[7%] ml-[1%]"
-                  href="https://facebook.com/herbertrsim"
-                  target="_blank"
-                >
+                <a className="w-[7%] ml-[1%]" href="#" target="_blank">
                   <img src="/images/socials/facebook.png" />
                 </a>
-                <a
-                  className="w-[7%] ml-[1%]"
-                  href="http://www.twitter.com/herbertrsim"
-                  target="_blank"
-                >
+                <a className="w-[7%] ml-[1%]" href="#" target="_blank">
                   <img src="/images/socials/twitter.png" />
                 </a>
               </div>
