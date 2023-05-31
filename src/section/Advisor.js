@@ -109,7 +109,8 @@ const Advisor = () => {
                   exceptional leadership and strategic investment skills.
                 </li>
                 <li className="text-[18px] md:text-[20px] px-2 text-left mt-5 leading-8 list-disc">
-                  He holds a BSc in Econometrics and an MSc in Economics.
+                  Edward has BSc in Econometrics from UC Berkeley School of Haas
+                  and received MSc, Economics from University of London.
                 </li>
               </ul>
             </div>
