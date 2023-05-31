@@ -76,11 +76,7 @@ const Advisor = () => {
             <div>
               <img className="" src="/images/edward.png" />
               <div className="flex w-[100%] mt-[-7%]">
-                <a
-                  className="w-[7%]"
-                  href="https://instagram.com/eddyrhry?igshid=NTc4MTIwNjQ2YQ=="
-                  target="_blank"
-                >
+                <a className="w-[7%]" href="#" target="_blank">
                   <img src="/images/socials/instagram.png" />
                 </a>
                 <a
