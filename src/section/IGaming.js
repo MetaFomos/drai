@@ -5,10 +5,10 @@ import "slick-carousel/slick/slick-theme.css";
 
 const solutionsAsset = [
   {
-    title: "IGaming",
+    title: "1the9",
     secondTitle:
-      "A variety of slots and card games are casino games that can entertain users and enjoy them at an affordable price.",
-    image: "/images/features/igaming.png",
+      "An application that solves the energy and meaning of our numbers.  Numbers have a unique power. Find your own good energy and good luck. Change your current life by checking your numbers!",
+    image: "/images/features/19.png",
   },
   {
     title: "ToonaToona",
@@ -17,16 +17,16 @@ const solutionsAsset = [
     image: "/images/features/toonatoona.png",
   },
   {
-    title: "1the9",
-    secondTitle:
-      "An application that solves the energy and meaning of our numbers.  Numbers have a unique power. Find your own good energy and good luck. Change your current life by checking your numbers!",
-    image: "/images/features/19.png",
-  },
-  {
     title: "AI Beauty",
     secondTitle:
       "AI now even predicts plastic surgery! It analyzes probabilistically for everyone who wants to become handsome and pretty. Don't be misdiagnosed by doctors anymore, let's ask artificial intelligence!",
     image: "/images/features/aiclinic.png",
+  },
+  {
+    title: "IGaming",
+    secondTitle:
+      "A variety of slots and card games are casino games that can entertain users and enjoy them at an affordable price.",
+    image: "/images/features/igaming.png",
   },
 ];
 
