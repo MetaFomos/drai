@@ -10,10 +10,12 @@ import Team from "./section/Team";
 import Vision from "./section/Vision";
 import Footer from "./section/Footer";
 import IGaming from "./section/IGaming";
+import ChatBot from "./components/ChatBot";
 
 function App() {
   return (
     <div className="App">
+      <ChatBot />
       <Info />
       <DragonAI />
       <IGaming />
