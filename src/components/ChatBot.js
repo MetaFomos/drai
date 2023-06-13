@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { openAIKey } from '../utils';
 
 const ChatBot = () => {
   const [speechRecognition, setSpeechRecognition] = useState();
@@ -142,7 +143,7 @@ const ChatBot = () => {
   };
 
   const callGPT = async (mes, temperature) => {
-    const key = process.env.API_KEY;
+    const key = openAIKey;
     if (key == null) return alert("you need to set api key first!");
     const requestBody = {
       model: "gpt-3.5-turbo",
