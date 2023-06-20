@@ -101,7 +101,7 @@ const Navbar = () => {
                 onClick={() => setLangShow(!langShow)}
               >
                 <img
-                  src="/icons/internet.png"
+                  src="/images/in/internet.png"
                   alt="language-icon"
                   className="w-[25px]"
                 />
