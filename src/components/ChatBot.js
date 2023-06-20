@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { openAIKey } from '../utils';
+import { openAIKey } from "../utils";
 
 const ChatBot = () => {
   const [speechRecognition, setSpeechRecognition] = useState();
@@ -193,10 +193,52 @@ const ChatBot = () => {
     setUtterance(undefined);
   };
 
+  const testLanguages = () => {
+    const language = localStorage
+      .getItem("dragonai-language")
+      .toLowerCase()
+      .split('"')[1];
+
+    let word = "私は 6 年以上の経験を持つフルスタック開発者です。";
+    switch (language) {
+      case "zh":
+        word = "我是一名拥有超过 6 年经验的全栈开发人员。";
+        break;
+      case "ko":
+        word = "경력 6년차 풀스택 개발자입니다.";
+        break;
+      case "ja":
+        word = "私は 6 年以上の経験を持つフルスタック開発者です。";
+        break;
+      default:
+        word = "I am a full-stack developer with over 6 years of experience.";
+        break;
+    }
+
+    // Feature detect
+    if (
+      window.speechSynthesis &&
+      typeof SpeechSynthesisUtterance !== undefined
+    ) {
+      const synth = window.speechSynthesis;
+      // get all the voices available on your browser
+      const voices = synth.getVoices();
+      // find a voice that can speak chinese
+      console.log(voices);
+      const voice = voices.filter(
+        (voice) => voice.lang.indexOf(language) === 0
+      )[0];
+      // make the browser speak!
+      const utterThis = new SpeechSynthesisUtterance(word);
+      utterThis.voice = voice;
+      synth.speak(utterThis);
+    }
+  };
+
   return (
     <div
       className="fixed w-[100px] right-[10px] bottom-[10px] cursor-pointer dragon-bot"
-      onClick={toggleListening}
+      onClick={testLanguages}
     >
       <img src="/bot/dragon.gif" />
     </div>

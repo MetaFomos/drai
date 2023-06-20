@@ -1,7 +1,20 @@
 import React, { useState } from "react";
+import { useLocalStorage } from "usehooks-ts";
+
+const languages = [
+  { name: "EN", label: "English" },
+  { name: "ZH", label: "Chinese" },
+  { name: "JA", label: "Japanese" },
+  { name: "KO", label: "Korean" },
+];
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [langShow, setLangShow] = useState(false);
+  const [globalLang, setGlobalLang] = useLocalStorage(
+    "dragonai-language",
+    "EN"
+  );
   return (
     <nav className="bg-transparent border-gray-200 dark:bg-gray-900 h-[120px]">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between p-4">
@@ -81,6 +94,35 @@ const Navbar = () => {
               <a href="#sectionvision" className="text-eee" aria-current="page">
                 VISION
               </a>
+            </li>
+            <li className="cursor-pointer">
+              <div
+                className="flex gap-2"
+                onClick={() => setLangShow(!langShow)}
+              >
+                <img
+                  src="/icons/internet.png"
+                  alt="language-icon"
+                  className="w-[25px]"
+                />
+                <span className="text-white">{globalLang}</span>
+              </div>
+              <div className={`absolute text-white ${!langShow && "hidden"}`}>
+                <ul>
+                  {languages.map((item, index) => (
+                    <li
+                      key={item.name}
+                      onClick={() => {
+                        setLangShow(!langShow);
+                        setGlobalLang(item.name);
+                      }}
+                      className={`w-[30px] py-[2px] ${index == 0 && "mt-1"}`}
+                    >
+                      {item.label}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </li>
           </ul>
         </div>
