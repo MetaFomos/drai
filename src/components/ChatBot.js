@@ -69,7 +69,6 @@ const ChatBot = () => {
   const toggleListening = () => {
     // clear previous output
     setMessage("");
-    console.log("GOOGLE");
 
     if (isListening) {
       // stop listening
@@ -85,8 +84,11 @@ const ChatBot = () => {
   const createSpeechRecognition = () => {
     // Use Web Speech API to recognize speech
     const rec = speechRecognition;
-
-    rec.lang = "en";
+    rec.lang = `${
+      localStorage.getItem("dragonai-language")
+        ? localStorage.getItem("dragonai-language").split('"')[1]
+        : "en"
+    }`;
     rec.interimResults = false;
     rec.maxAlternatives = 1;
     rec.onstart = function () {
@@ -119,9 +121,13 @@ const ChatBot = () => {
   const speakLang = (texts) => {
     setIsAiTalking(true);
     const utter = new window.SpeechSynthesisUtterance();
-    const la = "en";
+    const la = `${
+      localStorage.getItem("dragonai-language")
+        ? localStorage.getItem("dragonai-language").split('"')[1]
+        : "en"
+    }`;
     utter.text = texts;
-    utter.lang = "en";
+    utter.lang = la;
     utter.voice = findCorrectVoice(la);
     utter.volume = 5;
     utter.onend = () => {
@@ -193,7 +199,7 @@ const ChatBot = () => {
     setUtterance(undefined);
   };
 
-  const testLanguages = () => {
+  const testLanguages = (text = "") => {
     const language = localStorage
       .getItem("dragonai-language")
       .toLowerCase()
@@ -238,7 +244,7 @@ const ChatBot = () => {
   return (
     <div
       className="fixed w-[100px] right-[10px] bottom-[10px] cursor-pointer dragon-bot"
-      onClick={testLanguages}
+      onClick={toggleListening}
     >
       <img src="/bot/dragon.gif" />
     </div>
