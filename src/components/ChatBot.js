@@ -165,7 +165,6 @@ const ChatBot = () => {
       },
     });
     const responseBody = await response.json();
-    console.log(requestBody);
     const replyMessage = responseBody.choices[0].message.content;
     return replyMessage;
   };
@@ -230,7 +229,6 @@ const ChatBot = () => {
       // get all the voices available on your browser
       const voices = synth.getVoices();
       // find a voice that can speak chinese
-      console.log(voices);
       const voice = voices.filter(
         (voice) => voice.lang.indexOf(language) === 0
       )[0];
