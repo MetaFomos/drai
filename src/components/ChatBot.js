@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { openAIKey } from "../utils";
+import useSpeechSynthesis from "../hooks/speechsynth";
 
 const ChatBot = () => {
   const [speechRecognition, setSpeechRecognition] = useState();
@@ -10,6 +11,7 @@ const ChatBot = () => {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
   const [utterance, setUtterance] = useState();
+  const [voices, speak] = useSpeechSynthesis();
 
   useEffect(() => {
     try {
@@ -170,26 +172,7 @@ const ChatBot = () => {
   };
 
   const findCorrectVoice = (lang) => {
-    const { speechSynthesis } = window;
-    if (lang === "en") {
-      const voices = speechSynthesis
-        .getVoices()
-        .filter(
-          (voice) => voice.name === "Ting-Ting" && voice.lang === "zh-CN"
-        );
-      if (voices.length > 0) {
-        return voices[0];
-      }
-    } else if (lang === "en") {
-      const voices = speechSynthesis
-        .getVoices()
-        .filter((voice) => voice.name === "Alex" && voice.lang === "en-US");
-      if (voices.length > 0) {
-        return voices[0];
-      }
-    }
-
-    return window.speechSynthesis.getVoices()[44];
+    return voices.filter((v) => v.name === lang)[0];
   };
 
   const handleMute = () => {
