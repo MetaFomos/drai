@@ -120,32 +120,46 @@ const ChatBot = () => {
 
   const speakLang = (texts) => {
     setIsAiTalking(true);
-    const utter = new window.SpeechSynthesisUtterance();
     const la = `${
       localStorage.getItem("dragonai-language")
         ? localStorage.getItem("dragonai-language").split('"')[1]
         : "en"
     }`;
-    utter.text = texts;
-    utter.lang = la;
-    utter.voice = findCorrectVoice(la);
-    utter.volume = 5;
-    utter.onend = () => {
-      handleMute();
-    };
-    utter.onerror = () => {
-      handleMute();
-    };
-    utter.onpause = function () {
-      // workaround for mobile issue
-      if (window.speechSynthesis.paused) {
-        handleMute();
-      }
-    };
-    setUtterance(utter);
+    if (
+      window.speechSynthesis &&
+      typeof SpeechSynthesisUtterance !== undefined
+    ) {
+      const synth = window.speechSynthesis;
+      // get all the voices available on your browser
+      const voices = synth.getVoices();
+      // find a voice that can speak chinese
+      const voice = voices.filter((voice) => voice.lang.indexOf(la) === 0)[0];
+      // make the browser speak!
+      const utterThis = new SpeechSynthesisUtterance(texts);
+      utterThis.voice = voice;
+      synth.speak(utterThis);
+    }
+    // const utter = new window.SpeechSynthesisUtterance();
+    // utter.text = texts;
+    // utter.lang = la;
+    // utter.voice = findCorrectVoice(la);
+    // utter.volume = 5;
+    // utter.onend = () => {
+    //   handleMute();
+    // };
+    // utter.onerror = () => {
+    //   handleMute();
+    // };
+    // utter.onpause = function () {
+    //   // workaround for mobile issue
+    //   if (window.speechSynthesis.paused) {
+    //     handleMute();
+    //   }
+    // };
+    // setUtterance(utter);
 
-    // Speak the text using the SpeechSynthesisUtterance API
-    window.speechSynthesis.speak(utter);
+    // // Speak the text using the SpeechSynthesisUtterance API
+    // window.speechSynthesis.speak(utter);
   };
 
   const callGPT = async (mes, temperature) => {
@@ -209,9 +223,6 @@ const ChatBot = () => {
       case "zh":
         word = "我是一名拥有超过 6 年经验的全栈开发人员。";
         break;
-      case "ko":
-        word = "경력 6년차 풀스택 개발자입니다.";
-        break;
       case "ja":
         word = "私は 6 年以上の経験を持つフルスタック開発者です。";
         break;
@@ -242,7 +253,7 @@ const ChatBot = () => {
   return (
     <div
       className="fixed w-[100px] right-[10px] bottom-[10px] cursor-pointer dragon-bot"
-      onClick={toggleListening}
+      onClick={testLanguages}
     >
       <img src="/bot/dragon.gif" />
     </div>
