@@ -95,7 +95,10 @@ const Navbar = () => {
             </ul>
           </div>
           <div>
-            <div className="flex gap-2" onClick={() => setLangShow(!langShow)}>
+            <div
+              className="flex gap-2 cursor-pointer"
+              onClick={() => setLangShow(!langShow)}
+            >
               <img
                 src="/images/in/internet.png"
                 alt="language-icon"
@@ -112,7 +115,9 @@ const Navbar = () => {
                       setLangShow(!langShow);
                       setGlobalLang(item.name);
                     }}
-                    className={`w-[30px] py-[2px] ${index == 0 && "mt-1"}`}
+                    className={`cursor-pointer w-[30px] py-[2px] ${
+                      index == 0 && "mt-1"
+                    }`}
                   >
                     {item.label}
                   </li>

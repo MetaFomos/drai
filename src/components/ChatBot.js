@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { openAIKey } from "../utils";
+import useSpeechSynthesis from "../hooks/speechsynth";
 
 const ChatBot = () => {
+  const [voices, speak] = useSpeechSynthesis();
   const [speechRecognition, setSpeechRecognition] = useState();
   const [isListening, setIsListening] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
@@ -125,41 +127,8 @@ const ChatBot = () => {
         ? localStorage.getItem("dragonai-language").split('"')[1]
         : "en"
     }`;
-    if (
-      window.speechSynthesis &&
-      typeof SpeechSynthesisUtterance !== undefined
-    ) {
-      const synth = window.speechSynthesis;
-      // get all the voices available on your browser
-      const voices = synth.getVoices();
-      // find a voice that can speak chinese
-      const voice = voices.filter((voice) => voice.lang.indexOf(la) === 0)[0];
-      // make the browser speak!
-      const utterThis = new SpeechSynthesisUtterance(texts);
-      utterThis.voice = voice;
-      synth.speak(utterThis);
-    }
-    // const utter = new window.SpeechSynthesisUtterance();
-    // utter.text = texts;
-    // utter.lang = la;
-    // utter.voice = findCorrectVoice(la);
-    // utter.volume = 5;
-    // utter.onend = () => {
-    //   handleMute();
-    // };
-    // utter.onerror = () => {
-    //   handleMute();
-    // };
-    // utter.onpause = function () {
-    //   // workaround for mobile issue
-    //   if (window.speechSynthesis.paused) {
-    //     handleMute();
-    //   }
-    // };
-    // setUtterance(utter);
-
-    // // Speak the text using the SpeechSynthesisUtterance API
-    // window.speechSynthesis.speak(utter);
+    const voice = voices.filter((item) => item.lang.indexOf(la) === 0)[0];
+    speak(texts, voice);
   };
 
   const callGPT = async (mes, temperature) => {
@@ -181,29 +150,6 @@ const ChatBot = () => {
     const responseBody = await response.json();
     const replyMessage = responseBody.choices[0].message.content;
     return replyMessage;
-  };
-
-  const findCorrectVoice = (lang) => {
-    const { speechSynthesis } = window;
-    if (lang === "en") {
-      const voices = speechSynthesis
-        .getVoices()
-        .filter(
-          (voice) => voice.name === "Ting-Ting" && voice.lang === "zh-CN"
-        );
-      if (voices.length > 0) {
-        return voices[0];
-      }
-    } else if (lang === "en") {
-      const voices = speechSynthesis
-        .getVoices()
-        .filter((voice) => voice.name === "Alex" && voice.lang === "en-US");
-      if (voices.length > 0) {
-        return voices[0];
-      }
-    }
-
-    return window.speechSynthesis.getVoices()[44];
   };
 
   const handleMute = () => {
@@ -230,30 +176,15 @@ const ChatBot = () => {
         word = "I am a full-stack developer with over 6 years of experience.";
         break;
     }
-
-    // Feature detect
-    if (
-      window.speechSynthesis &&
-      typeof SpeechSynthesisUtterance !== undefined
-    ) {
-      const synth = window.speechSynthesis;
-      // get all the voices available on your browser
-      const voices = synth.getVoices();
-      // find a voice that can speak chinese
-      const voice = voices.filter(
-        (voice) => voice.lang.indexOf(language) === 0
-      )[0];
-      // make the browser speak!
-      const utterThis = new SpeechSynthesisUtterance(word);
-      utterThis.voice = voice;
-      synth.speak(utterThis);
-    }
+    // find a voice that can speak chinese
+    const voice = voices.filter((item) => item.lang.indexOf(language) === 0)[0];
+    speak(word, voice);
   };
 
   return (
     <div
       className="fixed w-[100px] right-[10px] bottom-[10px] cursor-pointer dragon-bot"
-      onClick={testLanguages}
+      onClick={toggleListening}
     >
       <img src="/bot/dragon.gif" />
     </div>
