@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { openAIKey } from "../utils";
-import useSpeechSynthesis from "../hooks/speechsynth";
 
 const ChatBot = () => {
-  const [voices, speak] = useSpeechSynthesis();
   const [speechRecognition, setSpeechRecognition] = useState();
   const [isListening, setIsListening] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
@@ -122,13 +120,32 @@ const ChatBot = () => {
 
   const speakLang = (texts) => {
     setIsAiTalking(true);
+    const utter = new window.SpeechSynthesisUtterance();
     const la = `${
       localStorage.getItem("dragonai-language")
         ? localStorage.getItem("dragonai-language").split('"')[1]
         : "en"
     }`;
-    const voice = voices.filter((item) => item.lang.indexOf(la) === 0)[0];
-    speak(texts, voice);
+    utter.text = texts;
+    utter.lang = la;
+    utter.voice = findCorrectVoice(la);
+    utter.volume = 5;
+    utter.onend = () => {
+      handleMute();
+    };
+    utter.onerror = () => {
+      handleMute();
+    };
+    utter.onpause = function () {
+      // workaround for mobile issue
+      if (window.speechSynthesis.paused) {
+        handleMute();
+      }
+    };
+    setUtterance(utter);
+
+    // Speak the text using the SpeechSynthesisUtterance API
+    window.speechSynthesis.speak(utter);
   };
 
   const callGPT = async (mes, temperature) => {
@@ -152,6 +169,29 @@ const ChatBot = () => {
     return replyMessage;
   };
 
+  const findCorrectVoice = (lang) => {
+    const { speechSynthesis } = window;
+    if (lang === "en") {
+      const voices = speechSynthesis
+        .getVoices()
+        .filter(
+          (voice) => voice.name === "Ting-Ting" && voice.lang === "zh-CN"
+        );
+      if (voices.length > 0) {
+        return voices[0];
+      }
+    } else if (lang === "en") {
+      const voices = speechSynthesis
+        .getVoices()
+        .filter((voice) => voice.name === "Alex" && voice.lang === "en-US");
+      if (voices.length > 0) {
+        return voices[0];
+      }
+    }
+
+    return window.speechSynthesis.getVoices()[44];
+  };
+
   const handleMute = () => {
     setIsAiTalking(false);
     window.speechSynthesis.cancel();
@@ -169,6 +209,9 @@ const ChatBot = () => {
       case "zh":
         word = "我是一名拥有超过 6 年经验的全栈开发人员。";
         break;
+      case "ko":
+        word = "경력 6년차 풀스택 개발자입니다.";
+        break;
       case "ja":
         word = "私は 6 年以上の経験を持つフルスタック開発者です。";
         break;
@@ -176,9 +219,24 @@ const ChatBot = () => {
         word = "I am a full-stack developer with over 6 years of experience.";
         break;
     }
-    // find a voice that can speak chinese
-    const voice = voices.filter((item) => item.lang.indexOf(language) === 0)[0];
-    speak(word, voice);
+
+    // Feature detect
+    if (
+      window.speechSynthesis &&
+      typeof SpeechSynthesisUtterance !== undefined
+    ) {
+      const synth = window.speechSynthesis;
+      // get all the voices available on your browser
+      const voices = synth.getVoices();
+      // find a voice that can speak chinese
+      const voice = voices.filter(
+        (voice) => voice.lang.indexOf(language) === 0
+      )[0];
+      // make the browser speak!
+      const utterThis = new SpeechSynthesisUtterance(word);
+      utterThis.voice = voice;
+      synth.speak(utterThis);
+    }
   };
 
   return (
