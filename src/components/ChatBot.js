@@ -195,6 +195,9 @@ const ChatBot = () => {
       case "zh":
         word = "我是一名拥有超过 6 年经验的全栈开发人员。";
         break;
+      case "ko":
+        word = "경력 6년차 풀스택 개발자입니다.";
+        break;
       case "ja":
         word = "私は 6 年以上の経験を持つフルスタック開発者です。";
         break;
