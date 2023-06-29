@@ -172,7 +172,10 @@ const ChatBot = () => {
   };
 
   const findCorrectVoice = (lang) => {
-    return voices.filter((v) => v.name === lang)[0];
+    // const voice = voices.filter(
+    //   (voice) => voice.lang.indexOf(language) === 0
+    // )[0];
+    return voices.filter((v) => v.lang.indexOf(lang) === 0)[0];
   };
 
   const handleMute = () => {
@@ -192,9 +195,6 @@ const ChatBot = () => {
       case "zh":
         word = "我是一名拥有超过 6 年经验的全栈开发人员。";
         break;
-      case "ko":
-        word = "경력 6년차 풀스택 개발자입니다.";
-        break;
       case "ja":
         word = "私は 6 年以上の経験を持つフルスタック開発者です。";
         break;
@@ -212,9 +212,7 @@ const ChatBot = () => {
       // get all the voices available on your browser
       const voices = synth.getVoices();
       // find a voice that can speak chinese
-      const voice = voices.filter(
-        (voice) => voice.lang.indexOf(language) === 0
-      )[0];
+      const voice = findCorrectVoice(language);
       // make the browser speak!
       const utterThis = new SpeechSynthesisUtterance(word);
       utterThis.voice = voice;
@@ -225,7 +223,7 @@ const ChatBot = () => {
   return (
     <div
       className="fixed w-[100px] right-[10px] bottom-[10px] cursor-pointer dragon-bot"
-      onClick={toggleListening}
+      onClick={testLanguages}
     >
       <img src="/bot/dragon.gif" />
     </div>
