@@ -116,8 +116,9 @@ const ChatBot = () => {
     setIsThinking(true);
     setResponse("");
     const text = await callGPT(message, 0.5);
-    setResponse(text);
-    setIsThinking(false);
+    alert(text);
+    // setResponse(text);
+    // setIsThinking(false);
   };
 
   const speakLang = (texts) => {
@@ -226,7 +227,7 @@ const ChatBot = () => {
   return (
     <div
       className="fixed w-[100px] right-[10px] bottom-[10px] cursor-pointer dragon-bot"
-      onClick={testLanguages}
+      onClick={toggleListening}
     >
       <img src="/bot/dragon.gif" />
     </div>
