@@ -116,9 +116,8 @@ const ChatBot = () => {
     setIsThinking(true);
     setResponse("");
     const text = await callGPT(message, 0.5);
-    alert(text);
-    // setResponse(text);
-    // setIsThinking(false);
+    setResponse(text);
+    setIsThinking(false);
   };
 
   const speakLang = (texts) => {
@@ -132,6 +131,7 @@ const ChatBot = () => {
     utter.text = texts;
     utter.lang = la;
     utter.voice = findCorrectVoice(la);
+    console.log(findCorrectVoice(la));
     utter.volume = 5;
     utter.onend = () => {
       handleMute();
@@ -173,10 +173,13 @@ const ChatBot = () => {
   };
 
   const findCorrectVoice = (lang) => {
-    // const voice = voices.filter(
-    //   (voice) => voice.lang.indexOf(language) === 0
-    // )[0];
-    return voices.filter((v) => v.lang.indexOf(lang) === 0)[0];
+    for (let i = 0; i < voices.length; i++) {
+      if (voices[i].lang.indexOf(lang.toLowerCase()) == 0) return voices[i];
+    }
+    return null;
+    // return voices.filter((v) => {
+    //   return v.name.indexOf(lang.toLowerCase()) == 0;
+    // })[0];
   };
 
   const handleMute = () => {
@@ -216,7 +219,9 @@ const ChatBot = () => {
       // get all the voices available on your browser
       const voices = synth.getVoices();
       // find a voice that can speak chinese
-      const voice = findCorrectVoice(language);
+      const voice = voices.filter(
+        (voice) => voice.lang.indexOf(language) === 0
+      )[0];
       // make the browser speak!
       const utterThis = new SpeechSynthesisUtterance(word);
       utterThis.voice = voice;
