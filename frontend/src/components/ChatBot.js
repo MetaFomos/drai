@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { openAIKey } from "../utils";
 import useSpeechSynthesis from "../hooks/speechsynth";
+import axios from "axios";
+
+const serverURL = "http://localhost";
 
 const ChatBot = () => {
   const [speechRecognition, setSpeechRecognition] = useState();
@@ -120,35 +123,33 @@ const ChatBot = () => {
     setIsThinking(false);
   };
 
-  const speakLang = (texts) => {
+  const speakLang = async (texts) => {
     setIsAiTalking(true);
-    const utter = new window.SpeechSynthesisUtterance();
-    const la = `${
+    const language = `${
       localStorage.getItem("dragonai-language")
         ? localStorage.getItem("dragonai-language").split('"')[1]
         : "en"
     }`;
-    utter.text = texts;
-    utter.lang = la;
-    utter.voice = findCorrectVoice(la);
-    console.log(findCorrectVoice(la));
-    utter.volume = 5;
-    utter.onend = () => {
-      handleMute();
-    };
-    utter.onerror = () => {
-      handleMute();
-    };
-    utter.onpause = function () {
-      // workaround for mobile issue
-      if (window.speechSynthesis.paused) {
-        handleMute();
-      }
-    };
-    setUtterance(utter);
 
-    // Speak the text using the SpeechSynthesisUtterance API
-    window.speechSynthesis.speak(utter);
+    const requestBody = {
+      text: texts,
+      language,
+    };
+
+    const response = await fetch(`${serverURL}/api/tts`, {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    const path = result.path;
+    console.log(`${serverURL}/${path}`);
+    const audio = new Audio(`${serverURL}/${path}`);
+    audio.play();
+
+    setIsAiTalking(false);
   };
 
   const callGPT = async (mes, temperature) => {
@@ -188,21 +189,19 @@ const ChatBot = () => {
     setUtterance(undefined);
   };
 
-  const testLanguages = (text = "") => {
-    const language = localStorage
-      .getItem("dragonai-language")
-      .toLowerCase()
-      .split('"')[1];
+  const testLanguages = async (text = "") => {
+    let language = `${
+      localStorage.getItem("dragonai-language")
+        ? localStorage.getItem("dragonai-language").split('"')[1]
+        : "en"
+    }`;
 
     let word = "私は 6 年以上の経験を持つフルスタック開発者です。";
     switch (language) {
-      case "zh":
+      case "ZH":
         word = "我是一名拥有超过 6 年经验的全栈开发人员。";
         break;
-      case "ko":
-        word = "경력 6년차 풀스택 개발자입니다.";
-        break;
-      case "ja":
+      case "JA":
         word = "私は 6 年以上の経験を持つフルスタック開発者です。";
         break;
       default:
@@ -210,23 +209,25 @@ const ChatBot = () => {
         break;
     }
 
-    // Feature detect
-    if (
-      window.speechSynthesis &&
-      typeof SpeechSynthesisUtterance !== undefined
-    ) {
-      const synth = window.speechSynthesis;
-      // get all the voices available on your browser
-      const voices = synth.getVoices();
-      // find a voice that can speak chinese
-      const voice = voices.filter(
-        (voice) => voice.lang.indexOf(language) === 0
-      )[0];
-      // make the browser speak!
-      const utterThis = new SpeechSynthesisUtterance(word);
-      utterThis.voice = voice;
-      synth.speak(utterThis);
-    }
+    console.log(language, word);
+
+    const requestBody = {
+      text: word,
+      language,
+    };
+
+    const response = await fetch(`${serverURL}/api/tts`, {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    const path = result.path;
+    console.log(`${serverURL}/${path}`);
+    const audio = new Audio(`${serverURL}/${path}`);
+    audio.play();
   };
 
   return (

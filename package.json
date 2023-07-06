@@ -1,54 +1,26 @@
 {
-  "name": "dragonai-front-end",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
-    "@fontsource/roboto": "^4.5.8",
-    "@mui/icons-material": "^5.11.16",
-    "@mui/material": "^5.13.1",
-    "@mui/styled-engine-sc": "^5.12.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "pure-react-carousel": "^1.30.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-modal": "^3.16.1",
-    "react-responsive-carousel": "^3.2.23",
-    "react-scripts": "5.0.1",
-    "react-slick": "^0.29.0",
-    "slick-carousel": "^1.8.1",
-    "styled-components": "^6.0.0-rc.1",
-    "usehooks-ts": "^2.9.1",
-    "web-vitals": "^2.1.4"
-  },
+  "name": "dragonai-backend",
+  "version": "1.0.0",
+  "description": "Backend project for especially tts with google cloud api for dragonai",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd client && npm install && npm run build",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "cd client && npm run start",
+    "dev": "concurrently npm run server && npm run client"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "tailwindcss": "^3.3.2"
+  "author": "Zheng",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/text-to-speech": "^4.2.3",
+    "axios": "^1.4.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security",
+    "util": "^0.12.5"
   }
 }
