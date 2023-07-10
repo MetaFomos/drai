@@ -1,10 +1,11 @@
 // server/index.js
-const path = require("path");
 require("dotenv").config();
+const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const getVoiceSetting = require("./voicesetting");
+const fileUpload = require("express-fileupload");
 
 const TextToSpeech = require("@google-cloud/text-to-speech");
 
@@ -21,6 +22,7 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use(fileUpload());
 
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, "./frontend/build")));
@@ -31,6 +33,33 @@ app.post("/api/tts", async (req, res) => {
   const { text, language } = req.body;
   const path = await synthesize(text, language);
   res.json({ path: path });
+});
+
+// Photo upload
+app.post("/api/uploadPicture", async (req, res) => {
+  const newpath = __dirname + "/public/faces/";
+  const file = req.files.file;
+
+  const fileExtensions = file.name.split(".");
+  const currentDate = new Date();
+  const timestamp = currentDate.getTime();
+  const fileName = `${timestamp}.${fileExtensions[fileExtensions.length - 1]}`;
+
+  console.log(fileName);
+  file.mv(`${newpath}${fileName}`, (err) => {
+    if (err) res.json({ path: "No" });
+    else
+      res.json({
+        path: fileName,
+      });
+  });
+});
+
+// Generate DID Video
+app.post("/api/generate_did_video", async (req, res) => {
+  const { fileName, text } = req.body;
+  const result = await createTalk(fileName, fileName);
+  res.json(result);
 });
 
 // All other GET requests not handled before will return our React app
@@ -61,6 +90,33 @@ const synthesize = async (text, lang) => {
   await writeFile(location + mp3FileName, response.audioContent, "binary");
 
   return "texttospeech/" + mp3FileName;
+};
+
+const createTalk = async (input_txt, fileName) => {
+  try {
+    const talkResponse = await fetch(`https://api.d-id.com/talks`, {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${process.env.DIDKEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        script: {
+          type: "text",
+          provider: { type: "microsoft", voice_id: "Jenny" },
+          ssml: "false",
+          input: input_txt,
+        },
+        config: { fluent: "false", pad_audio: "0.0" },
+        source_url: `https://dragonai.io/faces/${fileName}`,
+      }),
+    }).then((res) => res.json());
+    console.log(talkResponse, ">>>>> 766");
+    return { success: true, data: talkResponse };
+  } catch (error) {
+    console.log(error);
+    return { success: false };
+  }
 };
 
 function randomInteger(min, max) {

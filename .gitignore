@@ -1,6 +1,7 @@
 node_modules
 package-lock.json
 files/
+public/
 .env
 key.json
 audios
