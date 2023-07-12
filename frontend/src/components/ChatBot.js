@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { openAIKey } from '../utils';
+import { openAIKey } from "../utils";
+import useSpeechSynthesis from "../hooks/speechsynth";
+import axios from "axios";
+
+const serverURL = "http://localhost";
 
 const ChatBot = () => {
   const [speechRecognition, setSpeechRecognition] = useState();
@@ -10,6 +14,7 @@ const ChatBot = () => {
   const [message, setMessage] = useState("");
   const [response, setResponse] = useState("");
   const [utterance, setUtterance] = useState();
+  const [voices, speak] = useSpeechSynthesis();
 
   useEffect(() => {
     try {
@@ -69,7 +74,6 @@ const ChatBot = () => {
   const toggleListening = () => {
     // clear previous output
     setMessage("");
-    console.log("GOOGLE");
 
     if (isListening) {
       // stop listening
@@ -85,8 +89,11 @@ const ChatBot = () => {
   const createSpeechRecognition = () => {
     // Use Web Speech API to recognize speech
     const rec = speechRecognition;
-
-    rec.lang = "en";
+    rec.lang = `${
+      localStorage.getItem("dragonai-language")
+        ? localStorage.getItem("dragonai-language").split('"')[1]
+        : "en"
+    }`;
     rec.interimResults = false;
     rec.maxAlternatives = 1;
     rec.onstart = function () {
@@ -116,30 +123,33 @@ const ChatBot = () => {
     setIsThinking(false);
   };
 
-  const speakLang = (texts) => {
+  const speakLang = async (texts) => {
     setIsAiTalking(true);
-    const utter = new window.SpeechSynthesisUtterance();
-    const la = "en";
-    utter.text = texts;
-    utter.lang = "en";
-    utter.voice = findCorrectVoice(la);
-    utter.volume = 5;
-    utter.onend = () => {
-      handleMute();
-    };
-    utter.onerror = () => {
-      handleMute();
-    };
-    utter.onpause = function () {
-      // workaround for mobile issue
-      if (window.speechSynthesis.paused) {
-        handleMute();
-      }
-    };
-    setUtterance(utter);
+    const language = `${
+      localStorage.getItem("dragonai-language")
+        ? localStorage.getItem("dragonai-language").split('"')[1]
+        : "en"
+    }`;
 
-    // Speak the text using the SpeechSynthesisUtterance API
-    window.speechSynthesis.speak(utter);
+    const requestBody = {
+      text: texts,
+      language,
+    };
+
+    const response = await fetch(`${serverURL}/api/tts`, {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    const path = result.path;
+    console.log(`${serverURL}/${path}`);
+    const audio = new Audio(`${serverURL}/${path}`);
+    audio.play();
+
+    setIsAiTalking(false);
   };
 
   const callGPT = async (mes, temperature) => {
@@ -159,38 +169,65 @@ const ChatBot = () => {
       },
     });
     const responseBody = await response.json();
-    console.log(requestBody);
     const replyMessage = responseBody.choices[0].message.content;
     return replyMessage;
   };
 
   const findCorrectVoice = (lang) => {
-    const { speechSynthesis } = window;
-    if (lang === "en") {
-      const voices = speechSynthesis
-        .getVoices()
-        .filter(
-          (voice) => voice.name === "Ting-Ting" && voice.lang === "zh-CN"
-        );
-      if (voices.length > 0) {
-        return voices[0];
-      }
-    } else if (lang === "en") {
-      const voices = speechSynthesis
-        .getVoices()
-        .filter((voice) => voice.name === "Alex" && voice.lang === "en-US");
-      if (voices.length > 0) {
-        return voices[0];
-      }
+    for (let i = 0; i < voices.length; i++) {
+      if (voices[i].lang.indexOf(lang.toLowerCase()) == 0) return voices[i];
     }
-
-    return window.speechSynthesis.getVoices()[44];
+    return null;
+    // return voices.filter((v) => {
+    //   return v.name.indexOf(lang.toLowerCase()) == 0;
+    // })[0];
   };
 
   const handleMute = () => {
     setIsAiTalking(false);
     window.speechSynthesis.cancel();
     setUtterance(undefined);
+  };
+
+  const testLanguages = async (text = "") => {
+    let language = `${
+      localStorage.getItem("dragonai-language")
+        ? localStorage.getItem("dragonai-language").split('"')[1]
+        : "en"
+    }`;
+
+    let word = "私は 6 年以上の経験を持つフルスタック開発者です。";
+    switch (language) {
+      case "ZH":
+        word = "我是一名拥有超过 6 年经验的全栈开发人员。";
+        break;
+      case "JA":
+        word = "私は 6 年以上の経験を持つフルスタック開発者です。";
+        break;
+      default:
+        word = "I am a full-stack developer with over 6 years of experience.";
+        break;
+    }
+
+    console.log(language, word);
+
+    const requestBody = {
+      text: word,
+      language,
+    };
+
+    const response = await fetch(`${serverURL}/api/tts`, {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const result = await response.json();
+    const path = result.path;
+    console.log(`${serverURL}/${path}`);
+    const audio = new Audio(`${serverURL}/${path}`);
+    audio.play();
   };
 
   return (

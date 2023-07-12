@@ -11,11 +11,13 @@ import Vision from "./section/Vision";
 import Footer from "./section/Footer";
 import IGaming from "./section/IGaming";
 import ChatBot from "./components/ChatBot";
+import ChatDID from "./components/ChatDID";
 
 function App() {
   return (
     <div className="App">
       <ChatBot />
+      <ChatDID />
       <Info />
       <DragonAI />
       <IGaming />
