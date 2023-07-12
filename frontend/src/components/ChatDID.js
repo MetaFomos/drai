@@ -3,7 +3,7 @@ import { openAIKey } from "../utils";
 import useSpeechSynthesis from "../hooks/speechsynth";
 import axios from "axios";
 
-const serverURL = "http://localhost";
+const serverURL = "https://dragonai.io";
 
 const ChatDID = () => {
   const [speechRecognition, setSpeechRecognition] = useState();
