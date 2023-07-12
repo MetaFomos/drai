@@ -232,7 +232,13 @@ const ChatDID = () => {
             <source src={videoPath} type="video/mp4" />
           </video>
         )}
-        <input type="file" id="fileInput" hidden onChange={handleChange} />
+        <input
+          type="file"
+          id="fileInput"
+          hidden
+          onChange={handleChange}
+          accept="image/png, image/jpg, image/jpeg"
+        />
       </label>
       <button
         className="bg-golden text-[16px] sm:text-[16px] px-[10px] py-[8px] rounded-lg dark-font mt-[10px]"
