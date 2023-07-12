@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { openAIKey } from "../utils";
 import useSpeechSynthesis from "../hooks/speechsynth";
 import axios from "axios";
@@ -135,20 +135,7 @@ const ChatDID = () => {
       text: texts,
       language,
     };
-
-    const response = await fetch(`${serverURL}/api/tts`, {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const result = await response.json();
-    const path = result.path;
-    console.log(`${serverURL}/${path}`);
-    const audio = new Audio(`${serverURL}/${path}`);
-    audio.play();
-
+    createTalk(texts);
     setIsAiTalking(false);
   };
 
@@ -173,65 +160,17 @@ const ChatDID = () => {
     return replyMessage;
   };
 
-  const findCorrectVoice = (lang) => {
-    for (let i = 0; i < voices.length; i++) {
-      if (voices[i].lang.indexOf(lang.toLowerCase()) == 0) return voices[i];
-    }
-    return null;
-    // return voices.filter((v) => {
-    //   return v.name.indexOf(lang.toLowerCase()) == 0;
-    // })[0];
-  };
-
   const handleMute = () => {
     setIsAiTalking(false);
     window.speechSynthesis.cancel();
     setUtterance(undefined);
   };
 
-  const testLanguages = async (text = "") => {
-    let language = `${
-      localStorage.getItem("dragonai-language")
-        ? localStorage.getItem("dragonai-language").split('"')[1]
-        : "en"
-    }`;
-
-    let word = "私は 6 年以上の経験を持つフルスタック開発者です。";
-    switch (language) {
-      case "ZH":
-        word = "我是一名拥有超过 6 年经验的全栈开发人员。";
-        break;
-      case "JA":
-        word = "私は 6 年以上の経験を持つフルスタック開発者です。";
-        break;
-      default:
-        word = "I am a full-stack developer with over 6 years of experience.";
-        break;
-    }
-
-    console.log(language, word);
-
-    const requestBody = {
-      text: word,
-      language,
-    };
-
-    const response = await fetch(`${serverURL}/api/tts`, {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const result = await response.json();
-    const path = result.path;
-    console.log(`${serverURL}/${path}`);
-    const audio = new Audio(`${serverURL}/${path}`);
-    audio.play();
-  };
-
   const [file, setFile] = useState(null);
   const [imgPath, setImgPath] = useState("did.jpg");
+  const [videoPath, setVideoPath] = useState(null);
+  const [videoShow, setVideoShow] = useState(false);
+  const videoRef = useRef();
   const handleChange = (e) => {
     console.log(e.target.files);
     setFile(e.target.files[0]);
@@ -239,6 +178,7 @@ const ChatDID = () => {
 
   useEffect(() => {
     if (file) {
+      setVideoShow(false);
       const uploadFile = async () => {
         const formData = new FormData();
         formData.append("file", file);
@@ -258,26 +198,53 @@ const ChatDID = () => {
     }
   }, [file]);
 
-  const createTalk = async () => {
-    const res = await axios.post(`${serverURL}/api/generate_did_video`, {
+  useEffect(() => {
+    if (videoPath) {
+      setVideoShow(true);
+      // alert(videoPath);
+      console.log(videoRef.current);
+      videoRef.current && videoRef.current.play();
+    }
+  }, [videoPath]);
+
+  const createTalk = async (text) => {
+    const createRes = await axios.post(`${serverURL}/api/generate_did_video`, {
       fileName: imgPath,
-      text: "I am a full-stack developer.",
+      text: text,
     });
-    console.log(res.data);
+    const resultInterval = setInterval(async () => {
+      const res = await axios.post(`${serverURL}/api/get_talk`, {
+        t_id: createRes.data.data.id, // "tlk_Bk-uAi0xUvf1Zd-Z5tLL0"//
+      });
+      if (res.data.data.result_url) {
+        setVideoPath(res.data.data.result_url);
+        clearInterval(resultInterval);
+      }
+    }, 500);
   };
 
   return (
-    <div
-      className="fixed left-[10px] bottom-[10px] cursor-pointer"
-      // onClick={toggleListening}
-    >
-      <img src={`${serverURL}/faces/${imgPath}`} alt="DID" width={100} />
-      <input type="file" onChange={handleChange} />
+    <div className="fixed left-[10px] bottom-[10px] cursor-pointer w-[100px]">
+      <label htmlFor="fileInput">
+        {!videoShow && <img src={`${serverURL}/faces/${imgPath}`} alt="DID" />}
+        {videoShow && (
+          <video width={100} ref={videoRef} autoPlay>
+            <source src={videoPath} type="video/mp4" />
+          </video>
+        )}
+        <input type="file" id="fileInput" hidden onChange={handleChange} />
+      </label>
       <button
-        className="bg-golden text-[16px] sm:text-[20px] px-[10px] py-[8px] rounded-lg dark-font left-[-200px"
-        onClick={createTalk}
+        className="bg-golden text-[16px] sm:text-[16px] px-[10px] py-[8px] rounded-lg dark-font mt-[10px]"
+        onClick={toggleListening}
       >
-        Talk
+        {isListening
+          ? "Listening"
+          : isThinking
+          ? "Thinking"
+          : isAiTalking
+          ? "Talking"
+          : "Click"}
       </button>
     </div>
   );

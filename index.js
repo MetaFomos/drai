@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const getVoiceSetting = require("./voicesetting");
 const fileUpload = require("express-fileupload");
+const axios = require("axios");
 
 const TextToSpeech = require("@google-cloud/text-to-speech");
 
@@ -27,6 +28,11 @@ app.use(fileUpload());
 // Have Node serve the files for our built React app
 app.use(express.static(path.resolve(__dirname, "./frontend/build")));
 app.use(express.static(path.resolve(__dirname, "./public")));
+
+const didHeaders = {
+  Authorization: `Basic ${process.env.DIDKEY}`,
+  "Content-Type": "application/json",
+};
 
 // Handle GET requests to /api route
 app.post("/api/tts", async (req, res) => {
@@ -58,9 +64,17 @@ app.post("/api/uploadPicture", async (req, res) => {
 // Generate DID Video
 app.post("/api/generate_did_video", async (req, res) => {
   const { fileName, text } = req.body;
-  const result = await createTalk(fileName, fileName);
+  const result = await createTalk(text, fileName);
   res.json(result);
 });
+
+app.post("/api/get_talk", async (req, res) => {
+  const {t_id} = req.body;
+  console.log(t_id);
+  const response = await getTalk(t_id);
+  console.log(response);
+  res.json(response)
+})
 
 // All other GET requests not handled before will return our React app
 app.get("*", (req, res) => {
@@ -94,30 +108,37 @@ const synthesize = async (text, lang) => {
 
 const createTalk = async (input_txt, fileName) => {
   try {
-    const talkResponse = await fetch(`https://api.d-id.com/talks`, {
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${process.env.DIDKEY}`,
-        "Content-Type": "application/json",
+    const data = {
+      script: {
+        type: "text",
+        provider: { type: "microsoft", voice_id: "Jenny" },
+        ssml: "false",
+        input: input_txt,
       },
-      body: JSON.stringify({
-        script: {
-          type: "text",
-          provider: { type: "microsoft", voice_id: "Jenny" },
-          ssml: "false",
-          input: input_txt,
-        },
-        config: { fluent: "false", pad_audio: "0.0" },
-        source_url: `https://dragonai.io/faces/${fileName}`,
-      }),
-    }).then((res) => res.json());
-    console.log(talkResponse, ">>>>> 766");
-    return { success: true, data: talkResponse };
+      config: { fluent: "false", pad_audio: "0.0" },
+      source_url: `https://dragonai.io/faces/${fileName}`,
+    };
+    const talkResponse = await axios.post(`https://api.d-id.com/talks`, data, {
+      headers: didHeaders
+    })
+    return { success: true, data: talkResponse.data };
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     return { success: false };
   }
 };
+
+const getTalk = async (t_id) => {
+  try {
+    const response = await axios.get(`https://api.d-id.com/talks/${t_id}`, {
+      headers: didHeaders
+    })
+    return {success: true, data: response.data}
+  } catch (error) {
+    console.log(error.message);
+    return { success: false };
+  }
+}
 
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
